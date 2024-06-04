@@ -122,7 +122,7 @@ const updateProfile = async (req, res) => {
             });
 
         } else {
-            let query = `UPDATE user_profile SET f_name = '${f_name}', l_name = '${l_name}', mobile = '${mobile}', email = '${email}', address1 = '${address1}', address2 = '${address2}', country = '${country}', state_region = '${state_region}', profile_pic = '${profile_pic}' WHERE u_id = ${u_id};`
+            let query = `UPDATE user_profile SET f_name = '${f_name}', l_name = '${l_name}', mobile = '${mobile}', email = '${email}', address1 = '${address1}', address2 = '${address2}', country = '${country}', state_region = '${state_region}' WHERE u_id = ${u_id};`
             connection.query(query, ((err, result) => {
                 if (err) {
                     res.status(500).json(
