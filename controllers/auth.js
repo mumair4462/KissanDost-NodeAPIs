@@ -17,7 +17,7 @@ const login = async (req, res) => {
             } else {
 
                 if(result.length == 0){
-                    res.status(401).json(
+                    res.status(200).json(
                         { 
                            isError: true, 
                            massage: "Incorrect Email & Password" 
@@ -37,14 +37,14 @@ const login = async (req, res) => {
         }));
 
     }else{
-        res.status(401).json(
+        res.status(200).json(
             { 
               isError: true, 
               massage: "Provide Email and Password" 
             }
         );
     }
-       
+
 }
 
 const signup = async (req, res) => {
@@ -73,7 +73,7 @@ const signup = async (req, res) => {
         }));
 
     }else{
-        res.status(401).json(
+        res.status(200).json(
             { 
               isError: true, 
               massage: "Signup data is missing" 
