@@ -93,6 +93,7 @@ const updateProfile = async (req, res) => {
 
 
         if (change_pic) {
+
             const base64Data = profile_pic.replace(/^data:image\/png;base64,/, "");
             const filename = `${u_id}.png`;
             const filepath = path.join(__dirname.replace('\\controllers', ''), 'uploads', filename);
@@ -121,6 +122,7 @@ const updateProfile = async (req, res) => {
                 }));
             });
 
+        
         } else {
             let query = `UPDATE user_profile SET f_name = '${f_name}', l_name = '${l_name}', mobile = '${mobile}', email = '${email}', address1 = '${address1}', address2 = '${address2}', country = '${country}', state_region = '${state_region}' WHERE u_id = ${u_id};`
             connection.query(query, ((err, result) => {
