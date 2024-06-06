@@ -129,7 +129,6 @@ const getproducts =async(req,res)=>{
 const Deleteproduct =async(req,res)=>{
     const { id } = req.params;
     
-   
     let query  = `DELETE FROM product WHERE pid = '${id}' `;
     connection.query(query,((err,result)=>{
         if (err) {
