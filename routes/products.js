@@ -7,6 +7,6 @@ router.route('/getProducts').get(addProducts)
 router.route('/addproduct').post(addnewproducts)
 router.route('/products').get(getproducts)
 router.route('/update/product').get(Updateproducts)
-router.route('/delete/product').post(Deleteproduct)
+router.route('/delete/product/:id').get(Deleteproduct)
 
 module.exports = router;
