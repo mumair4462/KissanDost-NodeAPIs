@@ -13,25 +13,34 @@ const addnewproducts = async (req, res) => {
     const { name, price, price1, img,description } = req.body;
 
     if (name && price && price1 && img) {
-
-        let query = `INSERT INTO product (img, name, description, price, price1) VALUES ('${img}', '${name}','${description}' ,'${price}', '${price1}')`
-        connection.query(query,((err, result) => {
+        const base64Data = img.replace(/^data:image\/png;base64,/, "");
+        const filename = `${name}.png`;
+        const filepath = path.join(__dirname.replace('\\controllers', ''), 'uploads', filename);
+        fs.writeFile(filepath, base64Data, 'base64', (err) => {
             if (err) {
-                res.status(500).json(
-                    {
-                        isError: true,
-                        massage: err.message
-                    }
-                );
-            } else {
-                res.status(200).json(
-                    {
-                        isError: false,
-                        massage: "Product Added Successfully"
-                    }
-                );
+                return res.status(500).send({ massage: 'Failed to upload profile picture', isError: true });
             }
-        }));
+            let query = `INSERT INTO product (img, name, description, price, price1) VALUES ('${filename}', '${name}','${description}' ,'${price}', '${price1}')`
+            connection.query(query,((err, result) => {
+                if (err) {
+                    res.status(500).json(
+                        {
+                            isError: true,
+                            massage: err.message
+                        }
+                    );
+                } else {
+                    res.status(200).json(
+                        {
+                            isError: false,
+                            massage: "Product Added Successfully"
+                        }
+                    );
+                }
+            }));
+        
+        })
+       
 
     } else {
         res.status(200).json(
