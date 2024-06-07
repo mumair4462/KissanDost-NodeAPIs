@@ -23,7 +23,6 @@ app.get('/getImg/:id', async(req, res)=>{
     res.sendFile(__dirname + `/uploads/${id}`);
 })
 
-
 const start = async ()=>{
     try {
         app.listen(PORT, ()=>{

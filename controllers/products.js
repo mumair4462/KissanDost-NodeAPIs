@@ -156,11 +156,48 @@ const Deleteproduct =async(req,res)=>{
 
     }))
 }
+const ProductOrders =async(req,res)=>{
+    
+    let query  = `SELECT * FROM  orders`;
+    connection.query(query,((err,result)=>{
+        if (err) {
+            res.status(500).json(
+                {
+                    isError: true,
+                    massage: err.message
+                }
+            );
+        } else {
+            res.status(200).json(result);
+        }
+
+    }))
+}
+const ProductOrdersDetails =async(req,res)=>{
+
+    
+    let query  = `SELECT product.name,product.price,product.price1,orderdetails.quantity,orderdetails.pid,orderdetails.oid, FROM  orderdetails JOIN product ON product.pid = orderdetails.pid  `;
+    connection.query(query,((err,result)=>{
+        if (err) {
+            res.status(500).json(
+                {
+                    isError: true,
+                    massage: err.message
+                }
+            );
+        } else {
+            res.status(200).json(result);
+        }
+
+    }))
+}
 
 module.exports = {
     addProducts,
     getproducts,
+    ProductOrdersDetails,
     Updateproducts,
     addnewproducts,
+    ProductOrders,
     Deleteproduct
 }
