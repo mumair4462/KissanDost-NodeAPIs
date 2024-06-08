@@ -4,10 +4,10 @@ const path = require('path');
 
 const login = async (req, res) => {
 
-    const { email, password } = req.query;
+    const { email, password,role } = req.query;
     if (email && password) {
 
-        let query = `SELECT  u.u_id, u.f_name, u.l_name, u.mobile, u.email, u.address1, u.address2, u.country, u.state_region, u.profile_pic FROM user_profile u WHERE u.email = '${email}' AND u.password = '${password}'`
+        let query = `SELECT  u.u_id, u.role, u.f_name, u.l_name, u.mobile, u.email, u.address1, u.address2, u.country, u.state_region, u.profile_pic FROM user_profile u WHERE u.email = '${email}' AND u.password = '${password}' AND (u.role = '${role}' OR u.role = 'admin')`
         connection.query(query, ((err, result) => {
             if (err) {
                 res.status(500).json(
@@ -158,11 +158,28 @@ const updateProfile = async (req, res) => {
         );
     }
 
+
+}
+const getusers =async(req,res)=>{
+    let query  = 'SELECT * FROM user_profile';
+    connection.query(query,((err,result)=>{
+        if (err) {
+            res.status(500).json(
+                {
+                    isError: true,
+                    massage: err.message
+                }
+            );
+        } else {
+            res.status(200).json(result);
+        }
+
+    }))
 }
 
 module.exports = {
     login,
     signup,
- 
+    getusers,
     updateProfile
 }
