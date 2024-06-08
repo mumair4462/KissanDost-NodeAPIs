@@ -51,11 +51,11 @@ const login = async (req, res) => {
 
 const signup = async (req, res) => {
 
-    const { f_name, l_name, email, password } = req.body;
+    const { f_name, l_name, email, password,role } = req.body;
 
     if (f_name && l_name && email && password) {
 
-        let query = `INSERT INTO user_profile (f_name, l_name, email, password) VALUES ('${f_name}', '${l_name}', '${email}', '${password}');`
+        let query = `INSERT INTO user_profile (role,f_name, l_name, email, password) VALUES ('${role}','${f_name}', '${l_name}', '${email}', '${password}');`
         connection.query(query, ((err, result) => {
             if (err) {
                 res.status(500).json(
@@ -84,6 +84,7 @@ const signup = async (req, res) => {
     }
 
 }
+
 
 const updateProfile = async (req, res) => {
 
@@ -162,5 +163,6 @@ const updateProfile = async (req, res) => {
 module.exports = {
     login,
     signup,
+ 
     updateProfile
 }
