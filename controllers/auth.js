@@ -101,7 +101,7 @@ const updateProfile = async (req, res) => {
                 if (err) {
                     return res.status(500).send({ massage: 'Failed to upload profile picture', isError: true });
                 }
-                let img_path = `uploads/${filename}`;
+                let img_path = `${filename}`;
                 let query = `UPDATE user_profile SET f_name = '${f_name}', l_name = '${l_name}', mobile = '${mobile}', email = '${email}', address1 = '${address1}', address2 = '${address2}', country = '${country}', state_region = '${state_region}', profile_pic = '${img_path}' WHERE u_id = ${u_id};`
                 connection.query(query, ((err, result) => {
                     if (err) {
